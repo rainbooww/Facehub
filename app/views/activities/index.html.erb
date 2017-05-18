@@ -1,0 +1,37 @@
+<div class="jumbotron text-center">
+	<h1>Timeline</h1>
+</div>
+
+<div class="container">
+	<% @activities.each do |activity| %>
+
+                <% unless activity.trackable_type == "Friendship" && activity.owner == current_user %>
+		<% if activity.trackable %>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="media">
+							<div class="pull-left">
+								<%= gravatar_tag activity.owner.email, size: 55 %>
+							</div>
+							<div>
+								<h4><%= link_to activity.owner.username, user_path(activity.owner.username) %></h4>
+								<p><small><%=  time_ago_in_words(activity.created_at)%> ago</small></p>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<% case activity.trackable_type when "Post" %>
+							<p><%= activity.trackable.content %></p>
+						<% when "Friendship" %>
+<%= link_to activity.owner.username, user_path(activity.owner.username) %> is now friends with <%= link_to activity.recipient.username, user_path(activity.recipient.username) %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% end %>
+        <% end %>
+	<% end %>
+</div>

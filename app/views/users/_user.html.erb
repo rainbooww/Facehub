@@ -1,0 +1,12 @@
+<div class="col-md-3">
+  <div class="thumbnail">
+    <%= link_to user_path(user.username) do %>
+    <%= gravatar_tag user.email, size:300 %>
+    <% end %>
+    <div class="caption">
+      <h3><%= user.username %></h3>
+      <p><%= friend_buttons(user) %></p>
+  
+    </div>
+  </div>
+</div>

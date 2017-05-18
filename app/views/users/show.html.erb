@@ -1,0 +1,68 @@
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <%= gravatar_tag @user.email, size: 300 %>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h3><%= @user.username %></h3>
+        <p>Name: <%= @user.name %></p>
+        <p>Age: <%= @user.age %></p>
+        <p>School: <%= @user.school %></p>
+        <p>Work: <%= @user.work %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>About Me</h3>
+        <small><%= @user.bio %></small>
+      </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Friends (<%= @user.active_friends.size %>)
+        </div>
+        <div class="panel-body">
+          <% @user.active_friends.last(16).each do |user| %>
+          <%= link_to user_path(user.username) do %>
+          <%= gravatar_tag user.email, size: 40 %>
+          <% end %>
+          <br>
+          <%= user.username %>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST -->
+    <div class="col-md-6">
+      <% if current_user == @user %>
+      <%= render 'posts/form' %>
+      <% end %>
+      <%= render @posts %>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">Recent Activity</div>
+        <div class="panel-body">
+          <%= render_activities(@activities) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
